@@ -34,13 +34,31 @@ test("Home route", t => {
 
 // Elephant test
 
-test('Elephant route', t => {
+test("Elephant route", t => {
   supertest(router)
     .get("/elephants")
     .expect(404)
     .end((err, res) => {
       t.error(err);
-      t.equal(res.text, "unknown uri", 'elephants should return 404 with unknown uri' )
+      t.equal(
+        res.text,
+        "unknown uri",
+        "elephants should return 404 with unknown uri"
+      );
       t.end();
-    })
-})
+    });
+});
+
+test("Blog route", t => {
+  supertest(router)
+    .get("/blog")
+    .expect(200)
+    .end((err, res) => {
+      t.error(err);
+      t.equal(
+        res.text,
+        ["one", "two", "three"],
+        "blog should return 200 with [one, two, three]"
+      );
+    });
+});
