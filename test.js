@@ -54,11 +54,33 @@ test("Blog route", t => {
     .get("/blog")
     .expect(200)
     .end((err, res) => {
+      let oneTwoThree = JSON.parse(res.text);
       t.error(err);
-      t.equal(
-        res.text,
+      t.deepEqual(
+        oneTwoThree,
         ["one", "two", "three"],
         "blog should return 200 with [one, two, three]"
       );
+      t.end();
     });
 });
+
+test("Blog Post request", t => {
+  supertest(router)
+    .post("/blog")
+    .expect(200)
+    .end((err,res) => {
+      t.error(err);
+      t.deepEqual(
+        res.header,
+        {password: "potato"},
+        "password should be potato"
+      )
+      t.deepEqual(
+        res.body,
+        ['a','b'],
+        "body should be [a,b]"
+      )
+      t.end();
+    })
+})
