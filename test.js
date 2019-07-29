@@ -68,19 +68,12 @@ test("Blog route", t => {
 test("Blog Post request", t => {
   supertest(router)
     .post("/blog")
+    .set({ password: "potato" })
+    .send(["a", "b"])
     .expect(200)
-    .end((err,res) => {
+    .end((err, res) => {
       t.error(err);
-      t.deepEqual(
-        res.header,
-        {password: "potato"},
-        "password should be potato"
-      )
-      t.deepEqual(
-        res.body,
-        ['a','b'],
-        "body should be [a,b]"
-      )
+      t.deepEqual(res.body, ["a", "b"], "body should be [a,b]");
       t.end();
-    })
-})
+    });
+});
