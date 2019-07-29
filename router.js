@@ -3,5 +3,9 @@ const router = (req, res) => {
     res.writeHead(200, { "content-type": "text/html" });
     res.end("Hello");
   }
+  else {
+    res.writeHead(404, { "content-type": "text/html" });
+    res.end("unknown uri");
+  }
 };
 module.exports = router;
